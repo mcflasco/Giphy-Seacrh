@@ -6,37 +6,52 @@ h1{
 	text-align: center;
 	margin-bottom: 50px;
 }
+#images{
 
+}
 #gif{
 	border:2px solid black;
 	display: block;
-	width: 150px;
+	width: 250px;
+	height:225px;
 	border-radius: 20px;
 	opacity: 0.5;
 	transition: 0.25s ease-in-out;
-	margin: 0 auto;
+	margin: 25px auto;
+	margin-left: 25px;
 	display: inline-block
 
 }
 
-img:hover {
+#gif:hover {
 	opacity: 1;
 }
 
-#gif{
-	width: 250px;
-	height:225px	;
-}
-#button{
-	margin:25px 50px;
+
+.newButton{
+	margin:25px;
 
 }
+
 #buttons{
 	text-align: center;	 
 }
-
-p{
+#gif-rating{
 	display: block;
 	text-align: center;
 }
 
+
+#error{
+	margin: 0;
+	padding: 0;
+	color: red;
+	line-height: 0px;
+	font-size: 13px;
+}
+
+input{
+	line-height: 0px;
+	margin: 0;
+	padding: 0;
+}
