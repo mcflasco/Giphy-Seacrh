@@ -1,18 +1,13 @@
-const buttons = ['Rwby', 'Attack on Titan', 'korn'];
-
-
-
-
-
-
+const buttons = ['Walking Dead', 'Game of Thrones', 'The Witcher'];
 
 for(let i = 0; i < buttons.length; i++){
-	let button = $('<button class="btn btn-secondary newButton" type="button">' + buttons[i] + "</button>");
+	let button = $('<button class="btn btn-secondary" type="button">' + buttons[i] + "</button>");
+	button.addClass('newButton')
+	button.attr('data-name', buttons);
     button.attr("onclick", "giphySearch('" + buttons[i] + "')");
     button.appendTo("#buttons");
        
 	}
-
 
 
 const start = () => {
@@ -29,7 +24,6 @@ const start = () => {
 
 		createButtons();
 		giphySearch(userInput);	
-
 		}
 	})
 }
@@ -39,7 +33,9 @@ const start = () => {
 const createButtons = () => {
 
 	// creates buttons from click method
-	let button = $(' <button class="btn btn-secondary newButton" type="button" >' + userInput + '</button>');
+	let button = $(' <button class="btn btn-secondary" type="button" >' + userInput + '</button>');
+	button.addClass('newButton')
+	button.attr('data-name', userInput);
 	button.attr("onclick", "giphySearch('" + userInput + "')");		
 	button.appendTo('#buttons');
 
@@ -49,22 +45,26 @@ const createButtons = () => {
 
 const giphySearch = (topic) => {
 
-
 	const limit = 20;
 	const api = 'https://api.giphy.com/v1/gifs/search?';
-	const apiKey = '?';
+	const apiKey = '&api_key=HzpZI62zbKjwtTJJ0RLDCn0FWbNHiWhd';
 	const query = "&q=" + topic;	
-	const url = api + apiKey + query;
-	const xhr = $.get(url);
-	
-	
-	xhr.done(function(data){
-		console.log(data);	
-		let images = $('<img src="">');
+	const URL = api + apiKey + query;
+	// const xhr = $.get(URL);
 
-		for(var i = 0; i < data.data.length; i++){
-				console.log(data.data[i].images.original.url);
-				console.log(data.data[i].rating);				
+	$.ajax({url: URL, method: 'GET'})
+
+		.done(function(response) {
+	 		console.log(URL);
+	    	console.log(response);
+	 	
+	// xhr.done(function(data){
+	// 	console.log(data);	
+	// 	let images = $('<img src="">');
+
+		for(var i = 0; i < response.data.length; i++){
+				console.log(response.data[i].images.original.url);
+				console.log(response.data[i].rating);				
 		}
 
 
@@ -72,8 +72,8 @@ const giphySearch = (topic) => {
 			let images = $('<img id="gif" src="">')		
 			images.appendTo('#images');
 
-			$(images).attr('src', data.data[i].images.original.url);
-			$('#rating').html(data.data[i].rating);
+			$(images).attr('src', response.data[i].images.original.url);
+			$('#rating').html(response.data[i].rating);
 		}
 	})
 
@@ -81,9 +81,6 @@ const giphySearch = (topic) => {
 	$('#error').hide()
 	$(input).val("")
 }
-
-
-
 
 // set it up to replace old search
 
